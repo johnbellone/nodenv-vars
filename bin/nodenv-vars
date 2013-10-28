@@ -1,38 +1,38 @@
 #!/usr/bin/env bash
 #
-# Usage: rbenv vars
+# Usage: nodenv vars
 #
-# Prints all rbenv-vars environment variables applicable to the
+# Prints all nodenv-vars environment variables applicable to the
 # current working directory in the order they will be set. The output
 # format is a script that may be passed to `eval` in a Bourne-
 # compatible shell.
 #
-# For more information on rbenv-vars, see:
-# https://github.com/sstephenson/rbenv-vars#readme
+# For more information on nodenv-vars, see:
+# https://github.com/johnbellone/nodenv-vars#readme
 
 set -e
-[ -n "$RBENV_DEBUG" ] && set -x
+[ -n "$NODENV_DEBUG" ] && set -x
 
-if [ -z "$RBENV_DIR" ]; then
-  export RBENV_DIR="$(pwd)"
+if [ -z "$NODENV_DIR" ]; then
+  export NODENV_DIR="$(pwd)"
 fi
 
 if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
-  echo "rbenv-vars 1.2.0"
+  echo "nodenv-vars 1.0.0"
   exit
 fi
 
-find-rbenv-vars-files() {
-  if [ -e "${RBENV_ROOT}/vars" ]; then
-    echo "${RBENV_ROOT}/vars"
+find-nodenv-vars-files() {
+  if [ -e "${NODENV_ROOT}/vars" ]; then
+    echo "${NODENV_ROOT}/vars"
   fi
 
-  local root="$RBENV_DIR"
+  local root="$NODENV_DIR"
   local results=""
 
   while [ -n "$root" ]; do
-    if [ -e "${root}/.rbenv-vars" ]; then
-      results="${root}/.rbenv-vars"$'\n'"$results"
+    if [ -e "${root}/.nodenv-vars" ]; then
+      results="${root}/.nodenv-vars"$'\n'"$results"
     fi
     root="${root%/*}"
   done
@@ -56,4 +56,4 @@ while read file; do
   echo "# $file"
   { cat "$file"; echo; } | sanitize-vars
   echo
-done < <( find-rbenv-vars-files )
+done < <( find-nodenv-vars-files )
