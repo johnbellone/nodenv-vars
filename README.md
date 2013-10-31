@@ -48,5 +48,6 @@ order they'll be set.
 ## License
 
 &copy; 2012 Sam Stephenson.
+
 &copy; 2013 Bloomberg L.P. Released under the MIT license. See
 `LICENSE` for details.
